@@ -4,7 +4,7 @@ This is a port of [cernodile/py-deltaparser](https://github.com/cernodile/py-del
 
 ## Usage
 Get the latest release from the "Releases" section of this GitHub repository, extract it and place items.dat in the directory - then run the program.
-You can run the program by just launching the executable or typing ".\c-deltaparser.c [output file name]". The default output file name is "itemsdat_parsed".
+You can run the program by just launching the executable or typing "`.\c-deltaparser.c [output file name]`". The default output file name is "`itemsdat_parsed`".
 
 ## Compiling it yourself
 Should you have trouble trusting the executable in the "Releases" section, feel free to compile this program yourself. It's fully written in C99 (ANSI C)

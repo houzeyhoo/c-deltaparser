@@ -1,0 +1,1 @@
+gcc -std=c99 -O3 c-deltaparser.c -o c-deltaparser.exe

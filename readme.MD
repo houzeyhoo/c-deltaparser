@@ -1,5 +1,5 @@
 # c-deltaparser
-This is a tool for Growtopia's items.dat file. Compatible with every items.dat version, from v2 to v12.
+This is a tool for decoding Growtopia's items.dat file. Compatible with every items.dat version, from v2 to v12.
 This is a port of [cernodile/py-deltaparser](https://github.com/cernodile/py-deltaparser) to C, made with speed in mind.
 
 ## Usage

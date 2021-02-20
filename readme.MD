@@ -7,7 +7,7 @@ Get the latest release from the "Releases" section of this GitHub repository, ex
 You can run the program by just launching the executable or typing "`.\c-deltaparser.c [output file name]`". The default output file name is "`itemsdat_parsed`".
 
 ## Compiling it yourself
-Should you have trouble trusting the executable in the "Releases" section, feel free to compile this program yourself. It's fully written in C99 (ANSI C)
+Should you have trouble trusting the executable in the "Releases" section, feel free to compile this program yourself. It's fully written in C99
 and should be supported by every modern compiler. Tested on MSVC 19.27.29111.0, GCC 10.2 and Clang 11.0.0. Oh yeah, it also compiles for ARM. You can build this for Android.
 There are two gcc build scripts (one for Windows systems, one for Linux systems) in the repository. Feel free to use these!
 

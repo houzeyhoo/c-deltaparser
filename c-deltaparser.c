@@ -1,7 +1,8 @@
 //+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
-// c-deltaparser, Copyright (c) 2021 houz                                                                       //
+// c-deltaparser, copyright (c) 2021 houz                                                                       //
 // A parser for growtopia items.dat, written fully in C. Optimized to maximize efficiency.                      //
 // Usage: .\c-deltaparser [output file name] (default is "itemsdat_parsed")                                     //
+// For license, please read license.txt included in the project repo.                                           //
 //+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -56,8 +57,9 @@ struct item
     int bg_col;
     int fg_col;
 
-    // This value is always zero and its purpose is unknown.
-    int unknown; 
+    // These two seed values are always zero and they're unused.
+    short seed1;
+    short seed2;
 
     int bloom_time;
 
@@ -269,7 +271,7 @@ int main(int argc, char** argv)
     //read version and item count, deduce how many data_fields
     short version = 0;
     int item_count = 0;
-    unsigned char data_fields = 31; //base data fields amount
+    unsigned char data_fields = 32; //base data fields amount
     read_short_slen(buf, &buf_pos, &version);
     read_int32_slen(buf, &buf_pos, &item_count);
 
@@ -345,8 +347,15 @@ int main(int argc, char** argv)
         buf_out_size += read_byte_slen(buf, &buf_pos, &item.tree_over);
         buf_out_size += read_int32_slen(buf, &buf_pos, &item.bg_col);
         buf_out_size += read_int32_slen(buf, &buf_pos, &item.fg_col);
-        buf_out_size += read_int32_slen(buf, &buf_pos, &item.unknown);
+        buf_out_size += read_short_slen(buf, &buf_pos, &item.seed1);
+        buf_out_size += read_short_slen(buf, &buf_pos, &item.seed2);
         buf_out_size += read_int32_slen(buf, &buf_pos, &item.bloom_time);
+
+        if (item.seed1 != 0 || item.seed2 != 0)
+        {
+            printf("%s, %d, %d", item.name, item.seed1, item.seed2);
+            system("pause");
+        }
 
         if (version >= 7)
         {
@@ -433,7 +442,8 @@ int main(int argc, char** argv)
         ptr_to_buf_out = strcat_opt(ptr_to_buf_out, to_string_opt(items[i].tree_over));
         ptr_to_buf_out = strcat_opt(ptr_to_buf_out, to_string_opt(items[i].bg_col));
         ptr_to_buf_out = strcat_opt(ptr_to_buf_out, to_string_opt(items[i].fg_col));
-        ptr_to_buf_out = strcat_opt(ptr_to_buf_out, to_string_opt(items[i].unknown));
+        ptr_to_buf_out = strcat_opt(ptr_to_buf_out, to_string_opt(items[i].seed1));
+        ptr_to_buf_out = strcat_opt(ptr_to_buf_out, to_string_opt(items[i].seed2));
         ptr_to_buf_out = strcat_opt(ptr_to_buf_out, to_string_opt(items[i].bloom_time));
         if (version >= 7)
         {

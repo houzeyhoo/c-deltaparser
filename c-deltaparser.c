@@ -350,13 +350,7 @@ int main(int argc, char** argv)
         buf_out_size += read_short_slen(buf, &buf_pos, &item.seed1);
         buf_out_size += read_short_slen(buf, &buf_pos, &item.seed2);
         buf_out_size += read_int32_slen(buf, &buf_pos, &item.bloom_time);
-
-        if (item.seed1 != 0 || item.seed2 != 0)
-        {
-            printf("%s, %d, %d", item.name, item.seed1, item.seed2);
-            system("pause");
-        }
-
+		
         if (version >= 7)
         {
             buf_out_size += read_int32_slen(buf, &buf_pos, &item.anim_type);

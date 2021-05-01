@@ -11,7 +11,7 @@
 #include <string.h>
 #include <time.h>
 
-#define MAX_VERSION 12 // Maximum items.dat version supported by this parser
+#define MAX_VERSION 13 // Maximum items.dat version supported by this parser
 #define SECRET_LEN 16  // Length of the secret string used for name decryption
 
 /// POD item object
@@ -238,7 +238,6 @@ size_t read_str_encr(char* buf, unsigned int* bp, char** dest, int itemID)
     *bp += len;
     return (*bp - bp_in - 2);
 }
-
 //+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
 //                                               MAIN                                                             //
 //+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-//
@@ -263,7 +262,7 @@ int main(int argc, char** argv)
     fseek(file_input, 0, SEEK_SET);
 
     //initialize buffers
-    char* buf = malloc(file_size);
+    char* buf = (char*)malloc(file_size);
     fread(buf, 1, file_size, file_input);
     unsigned int buf_pos = 0;
     unsigned int buf_out_size = 0;
@@ -381,6 +380,10 @@ int main(int argc, char** argv)
         {
             buf_pos += 13; //skip more useless data
         }
+		if (version >= 13)
+		{
+			buf_pos += 4;
+		}
         items[i] = item;
     }
     fclose(file_input);
